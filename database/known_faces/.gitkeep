@@ -1,0 +1,7 @@
+Person photo folders go here.
+Example structure:
+  known_faces/JohnDoe/photo1.jpg
+  known_faces/JohnDoe/photo2.jpg
+  ...
+
+Run: python add_person.py  to add someone.

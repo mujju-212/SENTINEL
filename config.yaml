@@ -1,0 +1,81 @@
+# ============================================================
+#         DRONE VISION AI - CONFIGURATION FILE
+# ============================================================
+# Edit values below to customize system behavior
+# ============================================================
+
+# ─── CAMERA SETTINGS ────────────────────────────────────────
+camera:
+  device_id: 0          # 0 = default webcam, 1/2 = external cameras
+  width: 640
+  height: 480
+  fps: 30
+
+# ─── DETECTION SETTINGS ─────────────────────────────────────
+detection:
+  model: "yolov8n.pt"   # nano=fastest. Options: yolov8s.pt yolov8m.pt
+  confidence: 0.50      # 0.5 = only show if 50%+ confident
+  iou_threshold: 0.45
+  image_size: 640
+  device: "auto"        # auto=GPU if available | "cpu" | "cuda"
+  classes: null         # null = detect all 80 COCO classes
+                        # example to limit: [0, 2, 7]  (person, car, truck)
+
+# ─── FACE RECOGNITION SETTINGS ──────────────────────────────
+face_recognition:
+  enabled: true
+  known_faces_dir: "database/known_faces"
+  recognition_threshold: 0.60   # Lower = stricter matching (0.0 - 1.0)
+  process_every_n_frames: 3     # Run face ID every 3rd frame
+  detector_backend: "retinaface" # Options: retinaface, mtcnn, opencv, ssd
+  model_name: "Facenet"          # Options: Facenet, VGG-Face, ArcFace, Facenet512
+  model_dir: "D:/AI_Cache/deepface"  # DeepFace models stored on D: drive
+
+# ─── OCR SETTINGS ───────────────────────────────────────────
+ocr:
+  enabled: true
+  languages: ["en"]     # Add more: ["en", "fr", "de"]
+  process_every_n_frames: 10    # Run OCR every 10th frame (heavy)
+  gpu: true
+  min_confidence: 0.30  # Ignore OCR results below 30% confidence
+  model_dir: "D:/AI_Cache/easyocr"  # Models stored on D: drive
+
+# ─── TRACKING SETTINGS ──────────────────────────────────────
+tracking:
+  max_age: 30           # Frames to keep a track alive without detection
+  min_hits: 3           # Min detections before confirming a track
+  iou_threshold: 0.30
+
+# ─── DISPLAY SETTINGS ───────────────────────────────────────
+display:
+  show_fps: true
+  show_confidence: true
+  show_track_id: true
+  box_thickness: 2
+  font_scale: 0.60
+  # Colors in BGR format (Blue, Green, Red)
+  known_person_color:   [0, 255, 0]     # Green
+  unknown_person_color: [0, 0, 255]     # Red
+  object_color:         [255, 165, 0]   # Blue-orange
+  ocr_color:            [0, 255, 255]   # Yellow
+
+# ─── ALERT SETTINGS ─────────────────────────────────────────
+alerts:
+  unknown_person: true
+  known_person_greeting: true
+  sound_enabled: true
+  save_screenshot_on_alert: true
+  screenshot_dir: "output/screenshots"
+
+# ─── DATABASE SETTINGS ──────────────────────────────────────
+database:
+  path: "database/vision_ai.db"
+  save_every_n_frames: 5        # Save detections every 5 frames
+  keep_logs_days: 30            # Auto-delete logs older than 30 days
+
+# ─── PATH SETTINGS ──────────────────────────────────────────
+paths:
+  models_dir: "models"
+  logs_dir: "output/logs"
+  screenshots_dir: "output/screenshots"
+  test_images_dir: "input/test_images"

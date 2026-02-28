@@ -1,0 +1,2 @@
+Place test images (jpg/png) here for testing.
+Run: python test_modules.py --module detector
